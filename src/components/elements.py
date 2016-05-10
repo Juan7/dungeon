@@ -1,7 +1,5 @@
 from random import randint
 
-from .functions import apply_movement
-
 class BaseElement():
 
     MOVEMENTS = {
@@ -14,33 +12,35 @@ class BaseElement():
     type = None
 
     def start_position(self, canvas):
-        self.position = (randint(0,len(canvas.width)), randint(0,len(canvas.height)))
-
+        self.position = (randint(0,canvas.width), randint(0,canvas.height))
 
     def get_valid_movements(self, canvas):
         valid_movements = []
-        if position.first() != 0:
+        if self.position[0] != 0:
             valid_movements.append('LEFT')
-        if position.first() != canvas.width - 1:
+        if self.position[0] != canvas.width - 1:
             valid_movements.append('RIGHT')
-        if position.second() != 0:
+        if self.position[1] != 0:
             valid_movements.append('UP')
-        if position.second() != canvas.height - 1:
+        if self.position[1] != canvas.height - 1:
             valid_movements.append('DOWN')
         return valid_movements
 
     def apply_movement(self, pair):
-        self.position = (position.first() + pair.first(), position.second() + pair.second())
+        self.position = (self.position[0] + pair[0], self.position[0] + pair[0])
 
     def set_new_position(self, choose):
-        self.position = apply_movement(self, MOVEMENTS[choose])
+        self.position = self.apply_movement(self.MOVEMENTS[choose])
 
-    def move(self, direction=None):
-        valid_movements = self.get_valid_movements()
+    def move(self, canvas, direction=None):
+        valid_movements = self.get_valid_movements(canvas)
         choose = randint(0,len(valid_movements))
         if direction:
-            choose = valid_movements.index(direction)
-        self.set_new_position(choose)
+            try:
+                choose = valid_movements.index(direction)
+            except:
+                pass
+        self.set_new_position(valid_movements[choose])
 
 class Exit(BaseElement):
     type = 'exit'

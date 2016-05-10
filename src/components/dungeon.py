@@ -2,6 +2,7 @@
 
 import settings
 
+from .elements import Enemy, Character, Exit
 from .functions import set_field
 
 class Canvas():
@@ -19,15 +20,6 @@ class Canvas():
         self.width = width
         self.height = height
         self.enemies_number = enemies_number
-
-        for enemy_number in self.enemies_number:
-            enemy = Enemy()
-            enemy.start_position(self)
-            self.enemies.append(enemy)
-
-        self.character = Character().start_position(self)
-        self.exit = Exit().start_position(self)
-
         set_field(self.matrix, self.width, self.height)
 
 
