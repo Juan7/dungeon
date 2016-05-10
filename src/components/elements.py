@@ -13,6 +13,10 @@ class BaseElement():
     position = (None, None)
     type = None
 
+    def start_position(self, canvas):
+        self.position = (randint(0,len(canvas.width)), randint(0,len(canvas.height)))
+
+
     def get_valid_movements(self, canvas):
         valid_movements = []
         if position.first() != 0:
