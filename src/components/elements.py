@@ -3,16 +3,16 @@ from random import randint
 class BaseElement():
 
     MOVEMENTS = {
-        'LEFT': (-1, 0),
-        'RIGHT': (1, 0),
-        'UP': (0, -1),
-        'DOWN': (0, 1),
+        'LEFT': [-1, 0],
+        'RIGHT': [1, 0],
+        'UP': [0, -1],
+        'DOWN': [0, 1],
     }
-    position = (None, None)
+    position = [None, None]
     type = None
 
     def start_position(self, canvas):
-        self.position = (randint(0,canvas.width), randint(0,canvas.height))
+        self.position = [randint(0,canvas.width), randint(0,canvas.height)]
 
     def get_valid_movements(self, canvas):
         valid_movements = []
@@ -27,10 +27,14 @@ class BaseElement():
         return valid_movements
 
     def apply_movement(self, pair):
-        self.position = (self.position[0] + pair[0], self.position[0] + pair[0])
+        print(self.type)
+        print("Your position is %s", self.position)
+        self.position[0] += pair[0]
+        self.position[1] += pair[1]
+        print("Your NEW position is %s", self.position)
 
     def set_new_position(self, choose):
-        self.position = self.apply_movement(self.MOVEMENTS[choose])
+        self.apply_movement(self.MOVEMENTS[choose])
 
     def move(self, canvas, direction=None):
         valid_movements = self.get_valid_movements(canvas)
@@ -41,6 +45,7 @@ class BaseElement():
             except:
                 pass
         self.set_new_position(valid_movements[choose])
+        return self
 
 class Exit(BaseElement):
     type = 'exit'
