@@ -16,13 +16,14 @@ print('-- A: For LEFT                                   --')
 print('-- D: For RIGHT                                  --')
 print('-- FIND THE EXIT BEFORE THE ENEMIES FIND YOU!!!  --')
 print('---------------------------------------------------')
+print('--              Press Q for Quit!!!              --')
 print('---------------------------------------------------')
 
 
 key = ''
-message = ''
+message = 'Thanks for playing!'
 win = False
-canvas = Canvas(width=10, height=10, enemies_number=2)
+canvas = Canvas(width=10, height=10, enemies_number=5)
 for enemy_number in range(canvas.enemies_number):
     enemy = Enemy()
     enemy.start_position(canvas)
@@ -39,9 +40,9 @@ canvas.exit = exit
 horizontal_index = 3
 vertical_index = 3
 
-while key != ord('q'):
-    print('EXIT: ', canvas.exit.position)
-    print('YOU:  ', canvas.character.position)
+while key.lower() != 'q':
+    print('EXIT:  ', canvas.exit.position)
+    print('YOU:   ', canvas.character.position)
     for enemy in canvas.enemies:
         print('ENEMY: ', enemy.position)
     print('FIELD: ' + str(canvas.width) + ' X ' + str(canvas.height))
