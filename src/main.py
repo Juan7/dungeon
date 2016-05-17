@@ -3,14 +3,25 @@ import curses
 
 from components.dungeon import *
 
-# stdscr = curses.initscr()
-# curses.cbreak()
-# stdscr.keypad(True)
-#
-# stdscr.addstr(0,0,"Hit 'q' to quit")
-# stdscr.refresh()
+print('---------------------------------------------------')
+print('--                DUNGEON v1.0                   --')
+print('---------------------------------------------------')
+print('-- By: Phinxk                                    --')
+print('-- AQP - 2016                                    --')
+print('---------------------------------------------------')
+
+print('-- KEYS:                                         --')
+print('-- W: For UP                                     --')
+print('-- S: For DOWN                                   --')
+print('-- A: For LEFT                                   --')
+print('-- D: For RIGHT                                  --')
+print('-- FIND THE EXIT BEFORE THE ENEMIES FIND YOU!!!  --')
+print('---------------------------------------------------')
+print('---------------------------------------------------')
+
 
 key = ''
+message = ''
 win = False
 canvas = Canvas()
 for enemy_number in range(canvas.enemies_number):
@@ -29,56 +40,43 @@ canvas.exit = exit
 horizontal_index = 3
 vertical_index = 3
 
-while key != ord('q') or not win:
-    print("EXIT: %s", canvas.exit.position)
-    print("YOU:  %s", canvas.character.position)
-    # stdscr.addstr(vertical_index, 3, "EXIT: " + str(canvas.exit.position))
-    # vertical_index += 3
-    # stdscr.addstr(vertical_index, 3, "YOU:  " + str(canvas.character.position))
-    # vertical_index += 3
+while key != ord('q'):
+    print('EXIT: ', canvas.exit.position)
+    print('YOU:  ', canvas.character.position)
     for enemy in canvas.enemies:
-        print("ENEMY: %s", enemy.position)
-        # stdscr.addstr(vertical_index, 3, "ENEMY: " + str(enemy.position))
-        # vertical_index += 3
-    print("FIELD: " + str(canvas.width) + " X " + str(canvas.height))
-    print("---------------------------------------------------")
-    # stdscr.addstr(vertical_index, 3, "FIELD: " + str(canvas.width) + " X " + str(canvas.height))
-    # vertical_index += 3
-    # stdscr.addstr(vertical_index, 3, "---------------------------------------------------")
-    # vertical_index += 3
-    # key = m.getch()
-    key = input()
-    # stdscr.addch(20,25,key)
-    # stdscr.refresh()
-
-    # stdscr.addstr(2, 20, canvas.exit.position)
-    # stdscr.addstr(3, 20, canvas.character.position)
-    # stdscr.addstr(4, 20, "--------------- Enemies ---------------")
-    # x = 5
-    #
-    # for enemy in canvas.enemies:
-    #     stdscr.addstr(x, 20, canvas.exit.position)
-    #     x += 1
-    print(key)
+        print('ENEMY: ', enemy.position)
+    print('FIELD: ' + str(canvas.width) + ' X ' + str(canvas.height))
+    print('---------------------------------------------------')
     next_position = ''
-    if key == curses.KEY_UP:
+    key = input()
+    if key.lower() == 'w':
         next_position = 'UP'
-    elif key == curses.KEY_DOWN:
+    elif key.lower() == 's':
         next_position = 'DOWN'
-    elif key == curses.KEY_LEFT:
+    elif key.lower() == 'a':
         next_position = 'LEFT'
-    elif key == curses.KEY_RIGHT:
+    elif key.lower() == 'd':
         next_position = 'RIGHT'
 
-    canvas.character.move(canvas, next_position)
+    # Must be set on keys
+    # if key == curses.KEY_UP:
+    #     next_position = 'UP'
+    # elif key == curses.KEY_DOWN:
+    #     next_position = 'DOWN'
+    # elif key == curses.KEY_LEFT:
+    #     next_position = 'LEFT'
+    # elif key == curses.KEY_RIGHT:
+    #     next_position = 'RIGHT'
+
+    canvas.character.move(canvas, direction=next_position)
 
     for enemy in canvas.enemies:
         enemy.move(canvas)
     win, lose = canvas.check()
     if lose:
-        print("You Lose")
-        # stdscr.addstr(1, 20, "You Lose")
-        # curses.endwin()
-print("You win!")
-# stdscr.addstr(0, 20, "You Win!")
-# curses.endwin()
+        message = 'You Lose!'
+        break
+    if win:
+        message = 'You Win!'
+        break
+print(message)
