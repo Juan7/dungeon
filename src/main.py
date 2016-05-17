@@ -22,7 +22,7 @@ print('---------------------------------------------------')
 key = ''
 message = ''
 win = False
-canvas = Canvas()
+canvas = Canvas(width=10, height=10, enemies_number=2)
 for enemy_number in range(canvas.enemies_number):
     enemy = Enemy()
     enemy.start_position(canvas)
