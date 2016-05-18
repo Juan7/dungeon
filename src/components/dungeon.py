@@ -32,7 +32,7 @@ class Canvas():
 
         self.exit = Exit()
         self.exit.start_position(canvas=self)
-
+        self.repositions()
 
     def check(self):
         win = False
@@ -44,3 +44,14 @@ class Canvas():
                 lose = True
                 break
         return win, lose
+
+    def repositions(self):
+        instant_win = self.character.position == self.exit.position
+        instant_lose = False
+        enemy_exit = False
+        for enemy in self.enemies:
+            instant_lose = instant_lose or (self.character.position == enemy.position)
+            enemy_exit = enemy_exit or (self.exit.position == enemy.position)
+        if instant_lose or instant_win or enemy_exit:
+            self.character.start_position(canvas=self)
+            self.exit.start_position(canvas=self)
