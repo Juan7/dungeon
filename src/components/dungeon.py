@@ -22,6 +22,17 @@ class Canvas():
         self.enemies_number = enemies_number
         set_field(self.matrix, self.width, self.height)
 
+        for enemy_number in range(self.enemies_number):
+            enemy = Enemy()
+            enemy.start_position(canvas=self)
+            self.enemies.append(enemy)
+
+        self.character = Character()
+        self.character.start_position(canvas=self)
+
+        self.exit = Exit()
+        self.exit.start_position(canvas=self)
+
 
     def check(self):
         win = False
