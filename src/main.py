@@ -24,48 +24,26 @@ key = ''
 message = 'Thanks for playing!'
 win = False
 
-width = settings.DEFAULT_WIDTH
-height = settings.DEFAULT_HEIGHT
-enemies_number = settings.DEFAULT_ENEMIES
+parameters = {
+    'width' : settings.DEFAULT_WIDTH,
+    'height' : settings.DEFAULT_HEIGHT,
+    'enemies_number' : settings.DEFAULT_ENEMIES,
+}
 
 print('--      Do you wanna config your game?  y/n      --')
 key = input()
 
 if key.lower() == 'y':
-    print('- Set width: (Max value = ' + str(settings.MAX_WIDTH) + ' )')
-    key = input()
-    while not key.strip().isdigit() or int(key.strip()) > settings.MAX_WIDTH:
-        print('- Set a correct width: ')
-        key = input()
-    width = int(key.strip())
+    for parameter in settings.PARAMETERS:
+        for index, value in parameter.items():  # Loop over 1 key dictionary
+            print(value['message'])
+            key = input()
+            while not key.strip().isdigit() or int(key.strip()) > value['max']:
+                print(value['ex_message'])
+                key = input()
+            parameters[index] = int(key.strip())
 
-    print('- Set height: (Max value = ' + str(settings.MAX_HEIGHT) + ' )')
-    key = input()
-    while not key.strip().isdigit() or int(key.strip()) > settings.MAX_HEIGHT:
-        print('- Set a correct height: ')
-        key = input()
-    height = int(key.strip())
-
-    print('- Set enemies number: (Max value = ' + str(settings.MAX_ENEMIES) + ' )')
-    key = input()
-    while not key.strip().isdigit() or int(key.strip()) > settings.MAX_ENEMIES:
-        print('- Set a correct enemies number: ')
-        key = input()
-    enemies_number = int(key.strip())
-
-canvas = Canvas(width=width, height=height, enemies_number=enemies_number)
-# for enemy_number in range(canvas.enemies_number):
-#     enemy = Enemy()
-#     enemy.start_position(canvas)
-#     canvas.enemies.append(enemy)
-#
-# character = Character()
-# character.start_position(canvas)
-# canvas.character = character
-#
-# exit = Exit()
-# exit.start_position(canvas)
-# canvas.exit = exit
+canvas = Canvas(width=parameters['width'], height=parameters['height'], enemies_number=parameters['enemies_number'])
 
 horizontal_index = 3
 vertical_index = 3
