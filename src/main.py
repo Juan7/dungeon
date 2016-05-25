@@ -53,31 +53,8 @@ horizontal_index = 3
 vertical_index = 3
 
 while key.lower() != 'q':
-    # print('EXIT:  ', dungeon.exit.position)
-    # print('YOU:   ', dungeon.character.position)
-    # for enemy in canvas.enemies:
-    #     print('ENEMY: ', enemy.position)
-    # print('FIELD: ' + str(canvas.width) + ' X ' + str(canvas.height))
-    # print('---------------------------------------------------')
-    enemy_positions = [enemy.position for enemy in dungeon.enemies]
-    map_list = []
-    for y in range(0, dungeon.height):
-        line = '|'
-        for x in range(0, dungeon.width):
-            position = [x, y]
-            if position == dungeon.exit.position:
-                line += 'E|'
-            elif position == dungeon.character.position:
-                line += 'C|'
-            elif position in enemy_positions:
-                line += 'X|'
-            else:
-                line += ' |'
-        map_list.append(line)
-    map_list = list(reversed(map_list))
-    map_graph = '\n'.join(map_list)
-    print(map_graph)
-
+    print(dungeon.dungeon_as_str())
+    
     next_position = ''
     key = input()
     if key.lower() == 'w':
@@ -89,10 +66,7 @@ while key.lower() != 'q':
     elif key.lower() == 'd':
         next_position = 'RIGHT'
 
-    dungeon.character.move(dungeon, direction=next_position)
-
-    for enemy in dungeon.enemies:
-        enemy.move(dungeon)
+    dungeon.next_move(direction=next_position)
     win, lose = dungeon.check()
     if lose:
         message = 'You Lose!'

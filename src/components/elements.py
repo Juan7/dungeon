@@ -47,18 +47,22 @@ class BaseElement():
             choose = randint(1,len(valid_movements))
             self.set_new_position(valid_movements[choose-1])
             dungeon.matrix[self.position[0]][self.position[1]] = self
+
         return self
 
 class Exit(BaseElement):
     type = 'exit'
+    graph = 'X|'
 
-    def move(self):
-        pass
+    def move(self, dungeon):
+        dungeon.matrix[self.position[0]][self.position[1]] = self
 
 
 class Character(BaseElement):
     type = 'character'
+    graph = 'C|'
 
 
 class Enemy(BaseElement):
     type = 'enemy'
+    graph = 'E|'
