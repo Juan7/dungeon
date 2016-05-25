@@ -1,13 +1,13 @@
-import settings
+from dungeon.settings import DEFAULT_ENEMIES, DEFAULT_HEIGHT, DEFAULT_WIDTH
 
 from components.dungeon import Dungeon
 
 
 def start():
     parameters = {
-        'width' : settings.DEFAULT_WIDTH,
-        'height' : settings.DEFAULT_HEIGHT,
-        'enemies_number' : settings.DEFAULT_ENEMIES,
+        'width' : DEFAULT_WIDTH,
+        'height' : DEFAULT_HEIGHT,
+        'enemies_number' : DEFAULT_ENEMIES,
     }
     dungeon = Dungeon(width=parameters['width'], height=parameters['height'], enemies_number=parameters['enemies_number'])
     return dungeon
