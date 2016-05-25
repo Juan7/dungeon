@@ -5,7 +5,7 @@ import settings
 from .elements import Enemy, Character, Exit
 from .functions import set_field
 
-class Canvas():
+class Dungeon():
     """Set the current area of game."""
 
     width = None
@@ -17,22 +17,22 @@ class Canvas():
     matrix = []
 
     def __init__(self, width=5, height=5, enemies_number=1):
-        """Init the values for Canvas."""
+        """Init the values for Dungeon."""
         self.width = width
         self.height = height
         self.enemies_number = enemies_number
-        set_field(self.matrix, self.width, self.height)
+        self.matrix = set_field(self.width, self.height)
         del self.enemies[:]
         for enemy_number in range(self.enemies_number):
             enemy = Enemy()
-            enemy.start_position(canvas=self)
+            enemy.start_position(dungeon=self)
             self.enemies.append(enemy)
 
         self.character = Character()
-        self.character.start_position(canvas=self)
+        self.character.start_position(dungeon=self)
 
         self.exit = Exit()
-        self.exit.start_position(canvas=self)
+        self.exit.start_position(dungeon=self)
         self.repositions()
 
     def check(self):
@@ -54,5 +54,5 @@ class Canvas():
             instant_lose = instant_lose or (self.character.position == enemy.position)
             enemy_exit = enemy_exit or (self.exit.position == enemy.position)
         if instant_lose or instant_win or enemy_exit:
-            self.character.start_position(canvas=self)
-            self.exit.start_position(canvas=self)
+            self.character.start_position(dungeon=self)
+            self.exit.start_position(dungeon=self)
