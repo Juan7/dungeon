@@ -1,4 +1,5 @@
 """Contain all the functions used in components."""
 
-def set_field(matrix, width, height):
-    matrix = [[None for x in range(width)] for y in range(height)]
+def set_field(width, height):
+    matrix = [[None for y in range(height)] for x in range(width)]
+    return matrix
