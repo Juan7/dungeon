@@ -71,7 +71,7 @@ class Character(BaseElement):
             self.set_new_position(valid_movements[choose])
             dungeon.matrix[self.position[0]][self.position[1]] = self
         except:
-            pass
+            dungeon.matrix[self.position[0]][self.position[1]] = self
         return self
 
 
