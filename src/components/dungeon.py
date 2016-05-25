@@ -17,11 +17,12 @@ class Canvas():
     matrix = []
 
     def __init__(self, width=5, height=5, enemies_number=1):
+        """Init the values for Canvas."""
         self.width = width
         self.height = height
         self.enemies_number = enemies_number
         set_field(self.matrix, self.width, self.height)
-
+        del self.enemies[:]
         for enemy_number in range(self.enemies_number):
             enemy = Enemy()
             enemy.start_position(canvas=self)
