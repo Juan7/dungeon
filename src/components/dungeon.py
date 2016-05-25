@@ -64,10 +64,15 @@ class Dungeon():
     def next_move(self, direction):
         """Makes the next move for all the dungeon elements."""
         self.matrix = set_field(self.width, self.height)
-        self.character.move(dungeon=self, direction=direction)
         self.exit.move(dungeon=self)
+        self.character.move(dungeon=self, direction=direction)
+        win, lose = self.check()
+        if lose:
+            return win, lose
         for enemy in self.enemies:
             enemy.move(dungeon=self)
+        win, lose = self.check()
+        return win, lose
 
     def dungeon_as_str(self):
         """Return the dungeon map as an string for print."""

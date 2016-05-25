@@ -35,20 +35,21 @@ class BaseElement():
         self.apply_movement(self.MOVEMENTS[choose])
 
     def move(self, dungeon, direction=None):
-        valid_movements = self.get_valid_movements(dungeon)
-        if direction and self.type == 'character':
-            try:
-                choose = valid_movements.index(direction)
-                self.set_new_position(valid_movements[choose])
-                dungeon.matrix[self.position[0]][self.position[1]] = self
-            except:
-                pass
-        if not direction and self.type == 'enemy':
-            choose = randint(1,len(valid_movements))
-            self.set_new_position(valid_movements[choose-1])
-            dungeon.matrix[self.position[0]][self.position[1]] = self
-
-        return self
+        raise NotImplementedError("Please Implement this method")
+        # valid_movements = self.get_valid_movements(dungeon)
+        # if direction and self.type == 'character':
+        #     try:
+        #         choose = valid_movements.index(direction)
+        #         self.set_new_position(valid_movements[choose])
+        #         dungeon.matrix[self.position[0]][self.position[1]] = self
+        #     except:
+        #         pass
+        # if not direction and self.type == 'enemy':
+        #     choose = randint(1,len(valid_movements))
+        #     self.set_new_position(valid_movements[choose-1])
+        #     dungeon.matrix[self.position[0]][self.position[1]] = self
+        #
+        # return self
 
 class Exit(BaseElement):
     type = 'exit'
@@ -56,13 +57,31 @@ class Exit(BaseElement):
 
     def move(self, dungeon):
         dungeon.matrix[self.position[0]][self.position[1]] = self
+        return self
 
 
 class Character(BaseElement):
     type = 'character'
     graph = 'C|'
 
+    def move(self, dungeon, direction):
+        valid_movements = self.get_valid_movements(dungeon)
+        try:
+            choose = valid_movements.index(direction)
+            self.set_new_position(valid_movements[choose])
+            dungeon.matrix[self.position[0]][self.position[1]] = self
+        except:
+            pass
+        return self
+
 
 class Enemy(BaseElement):
     type = 'enemy'
     graph = 'E|'
+
+    def move(self, dungeon):
+        valid_movements = self.get_valid_movements(dungeon)
+        choose = randint(1,len(valid_movements))
+        self.set_new_position(valid_movements[choose-1])
+        dungeon.matrix[self.position[0]][self.position[1]] = self
+        return self

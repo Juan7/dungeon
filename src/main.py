@@ -54,7 +54,7 @@ vertical_index = 3
 
 while key.lower() != 'q':
     print(dungeon.dungeon_as_str())
-    
+
     next_position = ''
     key = input()
     if key.lower() == 'w':
@@ -66,8 +66,8 @@ while key.lower() != 'q':
     elif key.lower() == 'd':
         next_position = 'RIGHT'
 
-    dungeon.next_move(direction=next_position)
-    win, lose = dungeon.check()
+    win, lose = dungeon.next_move(direction=next_position)
+    # win, lose = dungeon.check()
     if lose:
         message = 'You Lose!'
         break
