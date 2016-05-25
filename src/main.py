@@ -1,6 +1,8 @@
 import settings
 # import msvcrt as m
 
+from calculator import calculator
+import pprint
 from components.dungeon import *
 
 print('---------------------------------------------------')
@@ -19,6 +21,9 @@ print('---------------------------------------------------')
 print('--              Press Q for Quit!!!              --')
 print('---------------------------------------------------')
 
+calc = calculator.Calculator()
+# pprint.pprint(calculator)
+print(calc.multiply(5,3))
 
 key = ''
 message = 'Thanks for playing!'
