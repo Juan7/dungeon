@@ -1,6 +1,6 @@
 from dungeon.settings import DEFAULT_ENEMIES, DEFAULT_HEIGHT, DEFAULT_WIDTH
 
-from components.dungeon import Dungeon
+from dungeon.components.dungeon import Dungeon
 
 
 def start():

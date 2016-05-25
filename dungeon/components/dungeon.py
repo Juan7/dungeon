@@ -1,9 +1,9 @@
 """Contains all the methods and elements for the area of game."""
 
-import settings
+import dungeon.settings
 
-from .elements import Enemy, Character, Exit
-from .functions import set_field
+from dungeon.components.elements import Enemy, Character, Exit
+from dungeon.components.functions import set_field
 
 class Dungeon():
     """Set the current area of game."""
